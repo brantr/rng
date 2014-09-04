@@ -3,6 +3,12 @@
 #ifndef BRANT_RNG
 #define BRANT_RNG
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /*__cplusplus*/
+
+
 extern int flag_rng_gaussian;
 extern int flag_rng_uniform;
 extern int flag_rng_exponential;
@@ -95,4 +101,8 @@ void set_rng_gaussian_seed(int seed);
 /*! \fn void set_rng_direction_seed(int seed)
  *  \brief Set direction rng seed. */
 void set_rng_direction_seed(int seed);
+
+#ifdef __cplusplus
+}
+#endif /*__cplusplus*/
 #endif //BRANT_RNG
