@@ -16,6 +16,10 @@ int flag_rng_uniform;
  *  \brief Initialization flag for exponential RNG */
 int flag_rng_exponential;
 
+/*! \var int flag_rng_poisson
+ *  \brief Initialization flag for poisson RNG */
+int flag_rng_poisson;
+
 /*! \var int flag_rng_direction
  *  \brief Initialization flag for direction RNG */
 int flag_rng_direction;
@@ -41,6 +45,11 @@ const gsl_rng_type *T_rng_uniform;
  * \brief RNG type for exponential PDF */
 const gsl_rng_type *T_rng_exponential;
 
+
+/*! \var const gsl_rng_type *T_rng_poisson;
+ * \brief RNG type for poisson PDF */
+const gsl_rng_type *T_rng_poisson;
+
 /*! \var const gsl_rng_type *T_rng_direction;
  * \brief RNG type for direction PDF */
 const gsl_rng_type *T_rng_direction;
@@ -65,6 +74,10 @@ gsl_rng *r_rng_uniform;
 /*! \var gsl_rng *r_rng_exponential
  *  \brief Exponential RNG */
 gsl_rng *r_rng_exponential;
+
+/*! \var gsl_rng *r_rng_poisson
+ *  \brief Poisson RNG */
+gsl_rng *r_rng_poisson;
 
 /*! \var gsl_rng *r_rng_integer
  *  \brief Integer RNG */
@@ -120,6 +133,15 @@ double rng_exponential(double mu)
 	if(flag_rng_exponential!=1337)
 		initialize_rng_exponential();
 	return gsl_ran_exponential(r_rng_exponential, mu);
+}
+
+/*! \fn int rng_poisson(double mu)
+ *  \brief Returns a poisson-distributed random number with ave mu*/
+int rng_poisson(double mu)
+{
+	if(flag_rng_poisson!=1337)
+		initialize_rng_poisson();
+	return gsl_ran_poisson(r_rng_poisson, mu);
 }
 
 /*! \fn size_t *rng_permutation(int n)
@@ -220,6 +242,18 @@ void initialize_rng_exponential(void)
 
 	T_rng_exponential = gsl_rng_taus;
 	r_rng_exponential = gsl_rng_alloc(T_rng_exponential);
+}
+
+/*! \fn void initialize_rng_poisson(void)
+ *  \brief Initializes poisson random number generator */
+void initialize_rng_poisson(void)
+{
+	flag_rng_poisson = 1337;
+
+	gsl_rng_env_setup();
+
+	T_rng_poisson = gsl_rng_taus;
+	r_rng_poisson = gsl_rng_alloc(T_rng_poisson);
 }
 
 /*! \fn void initialize_rng_direction(void)

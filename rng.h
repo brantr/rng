@@ -52,6 +52,10 @@ double rng_uniform(double a, double b);
  *  \brief Returns a exponentially-distributed random number with scale mu*/
 double rng_exponential(double mu);
 
+/*! \fn int rng_poisson(double mu)
+ *  \brief Returns a poisson-distributed random number with scale mu*/
+int rng_poisson(double mu);
+
 /*! \fn double *rng_direction(int ndim)
  *  \brief Returns a random direction in n dimensions*/
 double *rng_direction(int ndim);
@@ -68,6 +72,10 @@ void initialize_rng_uniform(void);
 /*! \fn void initialize_rng_exponential(void)
  *  \brief Initializes exponential random number generator */
 void initialize_rng_exponential(void);
+
+/*! \fn void initialize_rng_poisson(void)
+ *  \brief Initializes poisson random number generator */
+void initialize_rng_poisson(void);
 
 /*! \fn void initialize_rng_direction(void)
  *  \brief Initializes direction random number generator */
@@ -93,6 +101,10 @@ void set_rng_uniform_seed(int seed);
 /*! \fn void set_rng_exponential_seed(int seed)
  *  \brief Set exponential rng seed. */
 void set_rng_exponential_seed(int seed);
+
+/*! \fn void set_rng_poisson_seed(int seed)
+ *  \brief Set poisson rng seed. */
+void set_rng_poisson_seed(int seed);
 
 /*! \fn void set_rng_gaussian_seed(int seed)
  *  \brief Set gaussian rng seed. */
