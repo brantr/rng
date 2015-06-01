@@ -411,6 +411,10 @@ double *rng_direction(int ndim)
 		printf("ndim must be > 1\n");
 		return NULL;
 	}
+
+  if(flag_rng_direction!=1337)
+    initialize_rng_direction());
+
 	//x = calloc_double_array(ndim);
 	if(!(x = (double *) calloc(ndim,sizeof(double))))
 	{
