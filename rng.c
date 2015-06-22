@@ -8,6 +8,10 @@
  *  \brief Initialization flag for Gaussian RNG */
 int flag_rng_gaussian;
 
+/*! \var int flag_rng_lognormal
+ *  \brief Initialization flag for lognormal RNG */
+int flag_rng_lognormal;
+
 /*! \var int flag_rng_uniform
  *  \brief Initialization flag for uniform RNG */
 int flag_rng_uniform;
@@ -43,6 +47,10 @@ int flag_rng_levy;
 /*! \var const gsl_rng_type *T_rng_gaussian
  * \brief RNG type for Gaussian PDF */
 const gsl_rng_type *T_rng_gaussian;
+
+/*! \var const gsl_rng_type *T_rng_lognormal
+ * \brief RNG type for lognormal PDF */
+const gsl_rng_type *T_rng_lognormal;
 
 /*! \var const gsl_rng_type *T_rng_uniform;
  * \brief RNG type for uniform PDF */
@@ -81,6 +89,10 @@ const gsl_rng_type *T_rng_levy;
 /*! \var gsl_rng *r_rng_gaussian
  *  \brief Gaussian RNG */
 gsl_rng *r_rng_gaussian;
+
+/*! \var gsl_rng *r_rng_lognormal
+ *  \brief lognormal RNG */
+gsl_rng *r_rng_lognormal;
 
 /*! \var gsl_rng *r_rng_uniform
  *  \brief Uniform RNG */
@@ -125,6 +137,29 @@ double rng_gaussian(double mu, double sigma)
 	if(flag_rng_gaussian!=1337)
 		initialize_rng_gaussian();
 	return gsl_ran_gaussian(r_rng_gaussian, sigma) + mu;
+}
+
+/*! \fn double rng_lognormal(double mu, double sigma)
+ *  \brief Returns a lognormal-distributed random number with mean mu and dispersion sigma */
+double rng_lognormal(double mu, double sigma)
+{
+	if(flag_rng_lognormal!=1337)
+		initialize_rng_lognormal();
+	return gsl_ran_lognormal(r_rng_lognormal, mu, sigma);
+}
+
+
+/*! \fn void initialize_rng_lognormal(void)
+ *  \brief Initializes lognormal random number generator */
+void initialize_rng_lognormal(void)
+{
+	flag_rng_lognormal = 1337;
+
+	gsl_rng_env_setup();
+
+	T_rng_lognormal = gsl_rng_default;
+	r_rng_lognormal = gsl_rng_alloc(T_rng_lognormal);
+	
 }
 
 /*! \fn void initialize_rng_gaussian(void)
@@ -390,6 +425,15 @@ void set_rng_gaussian_seed(int seed)
 	if(flag_rng_gaussian!=1337)
 		initialize_rng_gaussian();
 	gsl_rng_set(r_rng_gaussian, seed);
+}
+
+/*! \fn void set_rng_lognormal_seed(int seed)
+ *  \brief Set lognormal rng seed */
+void set_rng_lognormal_seed(int seed)
+{
+	if(flag_rng_lognormal!=1337)
+		initialize_rng_lognormal();
+	gsl_rng_set(r_rng_lognormal, seed);
 }
 
 /*! \fn void set_rng_direction_seed(int seed)

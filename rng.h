@@ -17,6 +17,7 @@ extern int flag_rng_integer;
 extern int flag_rng_permutation;
 extern int flag_rng_tdist;
 extern int flag_rng_levy;
+extern int flag_rng_lognormal;
 
 
 extern const gsl_rng_type *T_rng_gaussian;
@@ -27,6 +28,7 @@ extern const gsl_rng_type *T_rng_integer;
 extern const gsl_rng_type *T_rng_permutation;
 extern const gsl_rng_type *T_rng_tdist;
 extern const gsl_rng_type *T_rng_levy;
+extern const gsl_rng_type *T_rng_lognormal;
 
 
 extern gsl_rng *r_rng_gaussian;
@@ -37,6 +39,7 @@ extern gsl_rng *r_rng_integer;
 extern gsl_rng *r_rng_permutation;
 extern gsl_rng *r_rng_tdist;
 extern gsl_rng *r_rng_levy;
+extern gsl_rng *r_rng_lognormal;
 
 extern gsl_permutation *p_rng_permutation;
 
@@ -47,6 +50,14 @@ double rng_gaussian(double mu, double sigma);
 /*! \fn void initialize_rng_gaussian(void)
  *  \brief Initializes Gaussian random number generator */
 void initialize_rng_gaussian(void);
+
+/*! \fn void initialize_rng_lognormal(void)
+ *  \brief Initializes Lognormal random number generator */
+void initialize_rng_lognormal(void);
+
+/*! \fn double rng_lognormal(double mu, double sigma)
+ *  \brief Returns a Lognormal-distributed random number with mean mu and dispersion sigma */
+double rng_lognormal(double mu, double sigma);
 
 /*! \fn int rng_uniform(int n)
  *  \brief Returns a random integer between 0 and n-1*/
@@ -142,6 +153,10 @@ void set_rng_levy_seed(int seed);
 /*! \fn void set_rng_gaussian_seed(int seed)
  *  \brief Set gaussian rng seed. */
 void set_rng_gaussian_seed(int seed);
+
+/*! \fn void set_rng_lognormal_seed(int seed)
+ *  \brief Set lognormal rng seed. */
+void set_rng_lognormal_seed(int seed);
 
 /*! \fn void set_rng_direction_seed(int seed)
  *  \brief Set direction rng seed. */
